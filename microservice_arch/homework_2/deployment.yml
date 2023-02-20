@@ -6,11 +6,11 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: hello-deployment
+      app: otus-hello-app
   template:
     metadata:
       labels:
-        app: hello-deployment
+        app: otus-hello-app
     spec:
       containers:
         - name: hello-deployment
