@@ -1,7 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-deployment
+  name: otus-hw1
+  labels:
+    app: otus-hello-app
+  namespace: m
 spec:
   replicas: 2
   selector:
@@ -14,8 +17,7 @@ spec:
     spec:
       containers:
         - name: hello-deployment
-          image: health-check:latest
-          imagePullPolicy: Never
+          image: keepcalmer/my_repo:otus-healthcheck
           ports:
             - containerPort: 8000
       restartPolicy: Always

@@ -1,7 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-service
+  name: otus-hw1
+  labels:
+    app: otus-hello-app
+  namespace: m
 spec:
   selector:
     app: otus-hello-app
