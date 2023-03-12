@@ -10,6 +10,4 @@ RUN go mod download
 
 RUN go build -o hw1 ./cmd
 
-EXPOSE 8080
-
 CMD ["./hw1"]
