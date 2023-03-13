@@ -1,0 +1,40 @@
+version: "3.7"
+services:
+  high_1_db:
+    image: postgres:latest
+    container_name: composepostgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - fullstack
+    volumes:
+      - ./migration/00001_migration.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data/
+  high_1:
+    build:
+      context: .
+      dockerfile: dockerfile
+    environment:
+      - HOST=composepostgres
+      - PORT=5432
+      - USER=postgres
+      - PASSWORD=root
+      - DB_NAME=postgres
+    depends_on:
+      - high_1_db
+    restart: on-failure
+    networks:
+      - fullstack
+    ports:
+      - "8080:8080"
+volumes:
+  postgres_data:
+
+networks:
+  fullstack:
+    driver: bridge

@@ -1,0 +1,13 @@
+FROM golang:latest
+
+WORKDIR /api
+
+ADD go.mod .
+
+COPY . .
+
+RUN go mod download
+
+RUN go build -o hw1 ./cmd
+
+CMD ["./hw1"]
