@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: otus-hw1
+  namespace: m
+  labels:
+    app: otus-hello-app
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: arch.homework
+      http:
+        paths:
+          - path: /otusapp/kunschikov(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: otus-hello-app
+                port:
+                  number: 8000

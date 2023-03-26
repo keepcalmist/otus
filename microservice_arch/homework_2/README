@@ -1,0 +1,8 @@
+Сборка всего:
+kubectl apply -f k8s/service.yml -f k8s/deployment.yml -f k8s/ingress.yml
+
+Удаление всего
+kubectl delete svc otus-hw1 -n=m && kubectl delete ing otus-hw1 -n=m && kubectl delete deploy otus-hw1 -n=m
+
+В /etc/hosts прописано
+192.168.49.2 arch.homework
