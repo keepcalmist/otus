@@ -67,11 +67,24 @@ func (r *userRepo) Get(ctx context.Context, req *models.GetUserFilter) ([]*model
 		"biography",
 		"city",
 		"password",
-	).From("users").Where(
-		sq.Eq{
-			"id": req.UserIDs,
-		},
-	)
+	).From("users")
+
+	if len(req.UserIDs) > 0 {
+		qb = qb.Where(
+			sq.Eq{
+				"id": req.UserIDs,
+			},
+		)
+	}
+
+	if req.FirstName != "" {
+		qb = qb.Where("first_name like ?", fmt.Sprintf("%s%%", req.FirstName))
+	}
+
+	if req.SecondName != "" {
+		qb = qb.Where("second_name like ?", fmt.Sprintf("%s%%", req.SecondName))
+	}
+
 	fmt.Println(qb.ToSql())
 	users := make([]*models.User, 0)
 	rows, err := qb.QueryContext(ctx)
@@ -88,4 +101,14 @@ func (r *userRepo) Get(ctx context.Context, req *models.GetUserFilter) ([]*model
 	}
 
 	return users, nil
+}
+
+func (r *userRepo) InsertForCmd(ctx context.Context, tableName string, values map[string]interface{}) error {
+	qb := r.builder.Insert(tableName).SetMap(values)
+
+	if _, err := qb.ExecContext(ctx); err != nil {
+		return err
+	}
+
+	return nil
 }

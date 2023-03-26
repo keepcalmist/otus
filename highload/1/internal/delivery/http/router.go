@@ -19,6 +19,7 @@ func NewRouter(repo *database.Repo) *gin.Engine {
 
 	app.POST("/user/register", usersHandler.Register())
 	app.GET("/user/get/:id", usersHandler.GetByID())
+	app.GET("/user/search", usersHandler.GetByFilter())
 
 	r.POST("/login", usersHandler.Login())
 

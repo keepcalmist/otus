@@ -28,7 +28,8 @@ func main() {
 
 	router := http.NewRouter(repo)
 
-	if err := defaulHttp.ListenAndServe("localhost:8080", router); err != nil {
+	// это пздц... С localhost:8080 не работало !!!!
+	if err := defaulHttp.ListenAndServe(":8080", router); err != nil {
 		log.Fatal(err)
 		return
 	}

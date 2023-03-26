@@ -9,6 +9,8 @@ create table if not exists users (
     city       text not null,
     password   bytea not null
 );
+
+alter table users alter column biography set default '';
 -- +goose StatementEnd
 
 -- +goose Down

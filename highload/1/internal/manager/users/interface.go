@@ -11,6 +11,7 @@ type UserService interface {
 	Register(ctx context.Context, req *UserRegisterReq) (*UserRegisterResp, error)
 	GetByID(ctx context.Context, id int64) (*User, error)
 	Login(ctx context.Context, req *Login) (string, error)
+	GetByFilter(ctx context.Context, filter *SearchFilter) ([]*User, error)
 }
 
 type User struct {
@@ -43,4 +44,9 @@ type Claims struct {
 type Login struct {
 	ID       int64
 	Password []byte
+}
+
+type SearchFilter struct {
+	FirstName  string
+	SecondName string
 }

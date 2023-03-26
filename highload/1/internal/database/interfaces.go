@@ -12,6 +12,7 @@ import (
 type UsersRepo interface {
 	Register(ctx context.Context, req *models.UserRegisterReq) (*models.UserRegisterResp, error)
 	Get(ctx context.Context, req *models.GetUserFilter) ([]*models.User, error)
+	InsertForCmd(ctx context.Context, tableName string, values map[string]interface{}) error
 }
 
 type Repo struct {

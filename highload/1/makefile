@@ -17,5 +17,5 @@ migrate:
 ifeq ("$(wildcard $(LOCAL_BIN)/goose))","")
 	go install github.com/pressly/goose/v3/cmd/goose && mv $(GOPATH)/bin/goose $(LOCAL_BIN)
 endif
-	cd  $(CURDIR)/migration && $(LOCAL_BIN)/goose postgres "postgres://postgres:root@localhost:5432/postgres"  up
+	cd  $(CURDIR)/migration && $(LOCAL_BIN)/goose postgres "postgres://postgres:root@localhost:5432/postgres?sslmode=disable"  up
 

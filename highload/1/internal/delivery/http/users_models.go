@@ -38,3 +38,8 @@ type LoginResp struct {
 type Error struct {
 	Error string `json:"error"`
 }
+
+type SearchReq struct {
+	FirstName  string `form:"first_name"`
+	SecondName string `form:"second_name"`
+}
