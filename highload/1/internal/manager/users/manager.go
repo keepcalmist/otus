@@ -54,6 +54,23 @@ func (m *man) GetByID(ctx context.Context, id int64) (*User, error) {
 	return castUsers(users)[0], nil
 }
 
+func (m *man) GetByFilter(ctx context.Context, filter *SearchFilter) ([]*User, error) {
+	if filter == nil {
+		return nil, manager.BadRequest
+	}
+
+	users, err := m.repo.Users.Get(ctx, &models.GetUserFilter{FirstName: filter.FirstName, SecondName: filter.SecondName})
+	if err != nil {
+		return nil, err
+	}
+
+	if len(users) < 1 {
+		return nil, manager.NotFound
+	}
+
+	return castUsers(users), nil
+}
+
 func (m *man) Login(ctx context.Context, req *Login) (string, error) {
 	users, err := m.repo.Users.Get(ctx, &models.GetUserFilter{UserIDs: []int64{req.ID}})
 	if err != nil {

@@ -94,3 +94,26 @@ func (h *usersRouter) Login() gin.HandlerFunc {
 		c.JSON(http.StatusOK, LoginResp{Token: token})
 	}
 }
+
+func (h *usersRouter) GetByFilter() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var r SearchReq
+
+		if err := c.BindQuery(&r); err != nil {
+			c.JSON(http.StatusBadRequest, err)
+			return
+		}
+
+		resp, err := h.manager.GetByFilter(c, &users.SearchFilter{
+			FirstName:  r.FirstName,
+			SecondName: r.SecondName,
+		})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, Error{Error: err.Error()})
+			return
+		}
+
+		c.JSON(http.StatusOK, resp)
+		return
+	}
+}

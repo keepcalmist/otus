@@ -14,7 +14,9 @@ type UserRegisterResp struct {
 }
 
 type GetUserFilter struct {
-	UserIDs []int64
+	UserIDs    []int64
+	FirstName  string
+	SecondName string
 }
 
 type User struct {
